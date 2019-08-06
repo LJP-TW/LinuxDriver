@@ -7,16 +7,25 @@ all:
 clean:
 	make -C /lib/modules/$(shell uname -r)/build M=$(PWD) clean
 	-rm output.txt
+	-rm test.txt
+	-rm test
 	-sudo rmmod ljp
 
 ljp.ko:all
 
-test:ljp.ko
+load:ljp.ko
 	-sudo rmmod ljp
 	sudo dmesg -C
 	sudo insmod ljp.ko
 	dmesg
-	dd if=/dev/ljp_dev of=output.txt bs=16 count=1
+
+test_dd:load
+	dd if=/dev/ljp_dev of=test.txt bs=16 count=1
+	cat test.txt
+
+test_program:load
+	gcc test.c -o test
+	./test
 
 observe:
 	-cat /proc/devices | grep ljp_proc

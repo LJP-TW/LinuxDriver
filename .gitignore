@@ -7,5 +7,6 @@
 modules.order
 Module.symvers
 .tmp_versions/
-output.txt
 *.swp
+test
+test.txt
