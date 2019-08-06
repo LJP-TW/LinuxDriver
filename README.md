@@ -8,7 +8,8 @@ make
 
 ## Test
 ```shell
-make test
+make test_dd
+make test_program
 ```
 
 # Reference
